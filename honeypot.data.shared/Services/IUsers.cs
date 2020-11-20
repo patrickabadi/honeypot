@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using honeypot.shared.Models;
 using Refit;
 
-namespace honeypot.data.shared.Refit
+namespace honeypot.data.shared.Services
 {
     interface IUsers
     {

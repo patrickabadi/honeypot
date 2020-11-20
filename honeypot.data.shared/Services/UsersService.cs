@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace honeypot.data.shared.Refit
+namespace honeypot.data.shared.Services
 {
     public static class UsersService
     {
