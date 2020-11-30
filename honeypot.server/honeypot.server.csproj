@@ -16,7 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\honeypot.data.shared\honeypot.data.shared.csproj" />
+    <ProjectReference Include="..\CrossSync.AspNetCore\CrossSync.AspNetCore.csproj" />
+    <ProjectReference Include="..\CrossSync.Infrastructure.Server\CrossSync.Infrastructure.Server.csproj" />
   </ItemGroup>
+
+  <Import Project="..\honeypot.entities.shared\honeypot.entities.shared.projitems" Label="Shared" />
 
 </Project>
