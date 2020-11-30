@@ -1,3 +1,4 @@
+using honeypot.entities.shared.Contexts;
 using honeypot.server.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +30,7 @@ namespace honeypot.server
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<Database>();
+                    var context = services.GetRequiredService<UsersContext>();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

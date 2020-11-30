@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrossSync.Entity.Abstractions.EF\CrossSync.Entity.Abstractions.EF.csproj" />
+    <ProjectReference Include="..\CrossSync.Entity.Client\CrossSync.Entity.Client.csproj" />
+  </ItemGroup>
+
+</Project>

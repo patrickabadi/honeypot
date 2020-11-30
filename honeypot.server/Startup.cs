@@ -1,3 +1,5 @@
+using CrossSync.AspNetCore.Extensions;
+using honeypot.entities.shared.Contexts;
 using honeypot.server.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +30,7 @@ namespace honeypot.server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Database>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<UsersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))).AddSync<UsersContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

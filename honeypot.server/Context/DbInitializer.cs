@@ -1,5 +1,6 @@
-﻿using honeypot.data.shared.Enums;
-using honeypot.shared.Models;
+﻿using honeypot.entities.shared.Contexts;
+using honeypot.entities.shared.Enums;
+using honeypot.entities.shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace honeypot.server.Context
 {
     public static class DbInitializer
     {
-        public static void Initialize(Database context)
+        public static void Initialize(UsersContext context)
         {
             context.Database.EnsureCreated();
 

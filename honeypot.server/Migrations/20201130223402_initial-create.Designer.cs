@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using honeypot.server.Context;
+using honeypot.entities.shared.Contexts;
 
 namespace honeypot.server.Migrations
 {
-    [DbContext(typeof(Database))]
-    [Migration("20201119235359_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(UsersContext))]
+    [Migration("20201130223402_initial-create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,15 +21,35 @@ namespace honeypot.server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("honeypot.shared.Models.User", b =>
+            modelBuilder.Entity("CrossSync.Entity.Abstractions.Entities.DeletedEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DataType")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("DeletedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("EntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntityId", "DataType")
+                        .IsUnique()
+                        .HasFilter("[DataType] IS NOT NULL");
+
+                    b.ToTable("DeletedEntities");
+                });
+
+            modelBuilder.Entity("honeypot.entities.shared.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(100)")
@@ -39,9 +59,6 @@ namespace honeypot.server.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Last")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -49,12 +66,17 @@ namespace honeypot.server.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 

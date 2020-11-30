@@ -1,29 +1,23 @@
-﻿using honeypot.data.shared.Enums;
-using honeypot.server.Context;
-using honeypot.shared.Models;
+﻿using honeypot.server.Context;
+using honeypot.entities.shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CrossSync.AspNetCore.Api;
+using CrossSync.Entity.Abstractions.Services;
+using CrossSync.Entity.Abstractions.UnitOfWork;
 
 namespace honeypot.server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : SyncController<User>
     {
-        private readonly Database _context;
-
-        public UsersController(Database context)
+        public UsersController(IUnitOfWork unitOfWork, ISyncRepository<User> repository) : base(unitOfWork, repository)
         {
-            _context = context;
         }
 
-        [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            return _context.Users.ToList();
-        }
     }
 }

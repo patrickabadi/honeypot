@@ -9,6 +9,7 @@
     <Import_RootNamespace>honeypot.entities.shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contexts\UsersContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\UserType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IUser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
